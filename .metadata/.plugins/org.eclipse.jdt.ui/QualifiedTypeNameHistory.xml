@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="io.restassured.RestAssured"/>
+    <fullyQualifiedTypeName name="io.restassured.http.ContentType"/>
+    <fullyQualifiedTypeName name="api.endpoints.Routes"/>
+    <fullyQualifiedTypeName name="org.testng.annotations.BeforeClass"/>
+    <fullyQualifiedTypeName name="com.github.javafaker.Faker"/>
+    <fullyQualifiedTypeName name="api.payload.UserDataClass"/>
+    <fullyQualifiedTypeName name="api.payload.User"/>
+    <fullyQualifiedTypeName name="api.endpoints.UserEndPoints"/>
+</qualifiedTypeNameHistroy>
