@@ -1,27 +1,28 @@
 package api.test;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.*;
-import io.restassured.response.Response;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import io.restassured.response.Response;
 
 import com.github.javafaker.Faker;
 
 import api.endpoints.UserEndPoints;
 import api.payload.User;
 
-public class UserTests {
+public class UserTests extends BaseClass {
 	
-	public Faker faker;
-	public User payload;
-	Response response;
-	public static final Logger logger = LoggerFactory.getLogger(UserTests.class);
+//	public Faker faker;
+//	public User payload;
+//	Response response;
+//	public static final Logger logger = LoggerFactory.getLogger(UserTests.class);
+//	
+//	public void logResponse(Response response) {
+//		logger.info("logging response body");
+//		response.then().log().all();
+//	}
 	
-	public void logResponse(Response response) {
-		logger.info("logging response body");
-		response.then().log().all();
-	}
+//	Logger logger = BaseClass.logger;
 	
 	@BeforeClass
 	public void setupData() {

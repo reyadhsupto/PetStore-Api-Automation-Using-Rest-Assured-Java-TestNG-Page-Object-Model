@@ -1,4 +1,5 @@
 package api.endpoints;
+import java.util.ResourceBundle;
 
 import api.payload.User;
 
@@ -9,42 +10,53 @@ import io.restassured.response.Response;
 
 public class UserEndPoints {
 	public static Response responseBody;
+	public static String url;
+	
+	public static ResourceBundle get_url() {
+		ResourceBundle routes = ResourceBundle.getBundle("routes");
+		return routes;
+	}
 	
 	public static Response createUser(User payload) {
+		url = get_url().getString("create_user_url");
 		responseBody = given()
 				.contentType(ContentType.JSON)
 				.accept(ContentType.JSON)
 				.body(payload)
 			.when()
-				.post(Routes.create_user_url);
+				.post(url);
 		return responseBody;
 	}
 	
 	public static Response getUser(String username) {
+		url = get_url().getString("get_user_url");
 		responseBody = given()
 				.pathParam("username", username)
 			.when()
-				.get(Routes.get_user_url);
+				.get(url);
 		return responseBody;
 	}
 	
 	public static Response updateUser(String username, User payload) {
+		url = get_url().getString("update_user_url");
 		responseBody = given()
 				.contentType(ContentType.JSON)
 				.accept(ContentType.JSON)
 				.body(payload)
 				.pathParam("username", username )
 			.when()
-				.put(Routes.update_user_url);
+				.put(url);
 		return responseBody;
 	}
 	
 	
 	public static Response deleteUser(String username) {
+		url = get_url().getString("delete_user_url");
+		System.out.println("--------USER:"+username);
 		responseBody = given()
 				.pathParam("username", username)
 					.when()
-				.delete(Routes.delete_user_url);
+				.delete(url);
 		return responseBody;
 	}
 	
