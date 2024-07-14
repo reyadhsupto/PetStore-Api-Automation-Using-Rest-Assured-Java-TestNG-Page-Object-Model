@@ -1,9 +1,6 @@
 package api.test;
 import org.testng.Assert;
 import org.testng.annotations.*;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import io.restassured.response.Response;
 
 import com.github.javafaker.Faker;
 
@@ -11,18 +8,6 @@ import api.endpoints.UserEndPoints;
 import api.payload.User;
 
 public class UserTests extends BaseClass {
-	
-//	public Faker faker;
-//	public User payload;
-//	Response response;
-//	public static final Logger logger = LoggerFactory.getLogger(UserTests.class);
-//	
-//	public void logResponse(Response response) {
-//		logger.info("logging response body");
-//		response.then().log().all();
-//	}
-	
-//	Logger logger = BaseClass.logger;
 	
 	@BeforeClass
 	public void setupData() {
@@ -59,7 +44,30 @@ public class UserTests extends BaseClass {
 		
 	}
 	
-	@Test(description="Test for Validating update user through status code", priority = 3, enabled= true, dependsOnMethods = {"test_CreateUser","test_GetUser"})
+	@Test(description="Test for validating login user",priority=3,enabled=true)
+	public void test_LoginUser() {
+		logger.info("validating of user login through username and password");
+		response = UserEndPoints.loginuser(this.payload.getUsername(), this.payload.getPassword());
+		logResponse(response);
+		Assert.assertEquals(response.getStatusCode(), 200);
+		String message = response.jsonPath().getString("message");
+		System.out.println("login message-----------------" + message);
+		Assert.assertTrue(message.startsWith("logged in user session:"), "Message should start with 'logged in user session:'");
+		
+	}
+	@Test(description = "test for validating of user logout", priority=4,dependsOnMethods = {"test_LoginUser"})
+	public void test_LogoutUser() {
+		logger.info("validating of user logout");
+		response = UserEndPoints.logoutuser();
+		logResponse(response);
+		String logout_message = response.jsonPath().getString("message");
+		System.out.println("log out message--------------" + logout_message);
+		Assert.assertTrue(response.jsonPath().getString("message").contains("ok"), "message should contain ok message");
+		Assert.assertEquals(response.getStatusCode(), 200);
+		
+	}
+	
+	@Test(description="Test for Validating update user through status code", priority = 5, enabled= true, dependsOnMethods = {"test_CreateUser","test_GetUser"})
 	public void test_UpdateUser() {
 		logger.info("validating status code for update user");
 		
@@ -86,7 +94,7 @@ public class UserTests extends BaseClass {
 	    Assert.assertNotNull(response.jsonPath().getString("email"), "User email is null");
 	}
 	
-	@Test(description="Test for Validating delete user through status code", priority = 4, enabled= true, dependsOnMethods = {"test_CreateUser","test_GetUser","test_UpdateUser"})
+	@Test(description="Test for Validating delete user through status code", priority = 6, enabled= true, dependsOnMethods = {"test_CreateUser","test_GetUser","test_UpdateUser"})
 	public void test_DeleteUser() {
 		logger.info("validating status code for delete user");
 		

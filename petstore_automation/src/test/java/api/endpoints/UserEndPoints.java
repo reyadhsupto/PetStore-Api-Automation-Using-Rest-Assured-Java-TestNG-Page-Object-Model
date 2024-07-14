@@ -37,6 +37,26 @@ public class UserEndPoints {
 		return responseBody;
 	}
 	
+	public static Response loginuser(String username, String password) {
+		url = get_url().getString("login_user_url");
+		responseBody = given()
+				.accept(ContentType.JSON)
+				.pathParam("username", username)
+				.pathParam("password", password)
+			.when()
+				.get(url);
+		return responseBody;
+	}
+	
+	public static Response logoutuser() {
+		url = get_url().getString("logout_user_url");
+		responseBody = given()
+				.accept(ContentType.JSON)
+			.when()
+				.get(url);
+		return responseBody;
+	}
+	
 	public static Response updateUser(String username, User payload) {
 		url = get_url().getString("update_user_url");
 		responseBody = given()
